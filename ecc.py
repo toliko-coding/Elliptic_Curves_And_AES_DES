@@ -1,11 +1,11 @@
 import EccCore
 
-applyBruteForce = False
+applyBruteForce = True
 applyKeyExchange = True
 applyDigitalSignature = True
 applySymmetricEncryption = True
-applyOrderOfGroup = False
-applyECDLP = False
+applyOrderOfGroup = True
+applyECDLP = True
 
 enableBitcoinParams = False
 
