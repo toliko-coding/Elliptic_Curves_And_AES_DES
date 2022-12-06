@@ -1,9 +1,15 @@
 from Client import *
 from Server import *
 import random
+from tinyec import registry
+import DES
+import hashlib, secrets, binascii
 
-from Crypto.Cipher import AES
+
+from Crypto.Cipher import *
 from Crypto.Random import get_random_bytes
+from secrets import token_bytes
+
 
 
 Client_RandomKey = random.getrandbits(128)
@@ -49,17 +55,26 @@ print("Shared Key : \n")
 C.GenerateSharedKey(S.Public_X,S.Public_Y,a,b,mod)
 S.GenerateSharedKey(C.Public_X,C.Public_Y,a,b,mod)
 
+curve = registry.get_curve('brainpoolP256r1')
 
 
+# msg = b'Text to be encrypted by ECC public key and ' \
+#       b'decrypted by its corresponding ECC private key'
+# print("original msg:", msg)
+# privKey = secrets.randbelow(curve.field.n)
+# print("PPPPPPPPP" ,privKey)
+# pubKey = privKey * curve.g
+# print("PPPPPPPPP" ,pubKey)
 
 
-# data = b'secret data'
+# encryptedMsg = DES.encrypt_ECC(msg, pubKey)
+# encryptedMsgObj = {
+#     'ciphertext': binascii.hexlify(encryptedMsg[0]),
+#     'nonce': binascii.hexlify(encryptedMsg[1]),
+#     'authTag': binascii.hexlify(encryptedMsg[2]),
+#     'ciphertextPubKey': hex(encryptedMsg[3].x) + hex(encryptedMsg[3].y % 2)[2:]
+# }
+# print("encrypted msg:", encryptedMsgObj)
 
-# key = get_random_bytes(16)
-# cipher = AES.new(key, AES.MODE_EAX)
-# ciphertext, tag = cipher.encrypt_and_digest(data)
-# nonce = cipher.nonce
-
-# cipher = AES.new(key, AES.MODE_EAX, nonce)
-# data = cipher.decrypt_and_verify(ciphertext, tag)
-
+# decryptedMsg = DES.decrypt_ECC(encryptedMsg, privKey)
+# print("decrypted msg:", decryptedMsg)
