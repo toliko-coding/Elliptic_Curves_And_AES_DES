@@ -7,7 +7,7 @@ applySymmetricEncryption = True
 applyOrderOfGroup = True
 applyECDLP = True
 
-enableBitcoinParams = False
+enableBitcoinParams = True
 
 #------------------------------------
 #curve configuration
@@ -41,6 +41,9 @@ print("Base point: (",x0,", ",y0,")")
 #print("order of group: ", order)
 print()
 #------------------------------------
+
+
+
 
 #------------------------------------
 #brute force
