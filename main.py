@@ -7,8 +7,6 @@ import hashlib, secrets, binascii
 
 
 from Crypto.Cipher import *
-from Crypto.Random import get_random_bytes
-from secrets import token_bytes
 
 
 
@@ -55,26 +53,30 @@ print("Shared Key : \n")
 C.GenerateSharedKey(S.Public_X,S.Public_Y,a,b,mod)
 S.GenerateSharedKey(C.Public_X,C.Public_Y,a,b,mod)
 
+print()
+print("Ecrypt + Decrypt")
+print()
+
 curve = registry.get_curve('brainpoolP256r1')
 
 
-# msg = b'Text to be encrypted by ECC public key and ' \
-#       b'decrypted by its corresponding ECC private key'
-# print("original msg:", msg)
-# privKey = secrets.randbelow(curve.field.n)
-# print("PPPPPPPPP" ,privKey)
-# pubKey = privKey * curve.g
-# print("PPPPPPPPP" ,pubKey)
+msg = b'Text to be encrypted by ECC public key and ' \
+      b'decrypted by its corresponding ECC '
+print("original msg:", msg)
+print()
+privKey = secrets.randbelow(curve.field.n)
+pubKey = privKey * curve.g
 
 
-# encryptedMsg = DES.encrypt_ECC(msg, pubKey)
-# encryptedMsgObj = {
-#     'ciphertext': binascii.hexlify(encryptedMsg[0]),
-#     'nonce': binascii.hexlify(encryptedMsg[1]),
-#     'authTag': binascii.hexlify(encryptedMsg[2]),
-#     'ciphertextPubKey': hex(encryptedMsg[3].x) + hex(encryptedMsg[3].y % 2)[2:]
-# }
-# print("encrypted msg:", encryptedMsgObj)
+encryptedMsg = DES.encrypt_ECC(msg, pubKey)
+encryptedMsgObj = {
+    'ciphertext': binascii.hexlify(encryptedMsg[0]),
+    'nonce': binascii.hexlify(encryptedMsg[1]),
+    'authTag': binascii.hexlify(encryptedMsg[2]),
+    'ciphertextPubKey': hex(encryptedMsg[3].x) + hex(encryptedMsg[3].y % 2)[2:]
+}
+print("encrypted msg:", encryptedMsgObj)
+print()
 
-# decryptedMsg = DES.decrypt_ECC(encryptedMsg, privKey)
-# print("decrypted msg:", decryptedMsg)
+decryptedMsg = DES.decrypt_ECC(encryptedMsg, privKey)
+print("decrypted msg:", decryptedMsg)
